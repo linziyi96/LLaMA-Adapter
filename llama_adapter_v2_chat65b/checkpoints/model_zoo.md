@@ -8,7 +8,7 @@ This page provides a summary of all released models. Download links are also inc
 
 | Version | Training data | Download url | Notes |
 | --- | --- | --- | --- |
-| v1 | ShareGPT | [Google drive]() | Initial version |
+| v1 | ShareGPT | [Google drive](https://drive.google.com/file/d/1EGDVyXKNt2k9rApoXQY2i0Wm34OatkgK/view?usp=sharing) | Initial version |
 
 ## Bias-scale-norm tuning + LoRA
 
