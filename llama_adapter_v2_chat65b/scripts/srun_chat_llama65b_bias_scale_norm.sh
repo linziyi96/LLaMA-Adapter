@@ -1,11 +1,11 @@
 #!/usr/bin/env sh
 
 # slurm partition name.
-partition=alpha_vl
+partition=
 # total number of GPUs to use.
-n_gpus=2
+n_gpus=
 # directory containing LLaMA backbone weights downloaded from facebook.
-llama_model_path=/mnt/petrelfs/share_data/llm_llama
+llama_model_path=
 
 
 srun -p "${partition}" --gres=gpu:${n_gpus} -n ${n_gpus} --ntasks-per-node ${n_gpus} --unbuffered \
