@@ -5,7 +5,6 @@ import sys
 from typing import Optional, Tuple
 from dataclasses import dataclass
 import math
-from packaging import version
 
 import torch
 from torch import nn
