@@ -9,6 +9,10 @@ import fairscale.nn.model_parallel.initialize as fs_init
 
 from conversation import conv_templates, SeparatorStyle
 import models_llama_adapter
+from models_llama_adapter import (
+        load_and_distribute_peft_state_dict,
+        peft_load_state_dict,
+        )
 from util import misc
 from llama import LLaMA, Tokenizer
 
