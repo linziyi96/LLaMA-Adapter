@@ -215,7 +215,7 @@ def create_gathered_state_dict(model):
 
         gather_dim = _get_gather_dim(n)
         if gather_dim >= 0:
-            gathered_shape = [x for i, x in enumerate(p.size()) if i != gather_dim else x * mp_size]
+            gathered_shape = [x if i != gather_dim else x * mp_size for i, x in enumerate(p.size())]
             gathered_tensor = torch.empty(gathered_shape, device=p.device, dtype=p.dtype)
             dist.all_gather_into_tensor(gathered_tensor, p, group=fs_init.get_model_parallel_group())
             gathered_state_dict[n] = gathered_tensor.cpu()
