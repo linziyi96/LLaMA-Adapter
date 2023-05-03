@@ -20,21 +20,8 @@ def load_model(args, load_8bit=False):
         print('Warning: not loading instruct tuned weights.')
     else:
         print('Using instruct tuned weights from:', args.model_path)
-        checkpoint = torch.load(args.model_path, map_location='cpu')
-        for k, v in checkpoint['model'].items():
-            if k.endswith('.wq_bias') or \
-                    k.endswith('.wk_bias') or \
-                    k.endswith('.wv_bias') or \
-                    k.endswith('.wo_scale') or \
-                    k.endswith('.w1_bias') or \
-                    k.endswith('.w3_bias') or \
-                    k.endswith('.w2_scale'):
-                assert v.ndim == 1
-                mp_size = fs_init.get_model_parallel_world_size()
-                mp_rank = fs_init.get_model_parallel_rank()
-                shard_size = v.size(0) // mp_size
-                checkpoint['model'][k] = v[shard_size * mp_rank: shard_size * (mp_rank + 1)]
-        missing_keys, unexpected_keys = model.load_state_dict(checkpoint['model'], strict=False)
+        state_dict = load_and_distribute_peft_state_dict(args.model_path)
+        peft_load_state_dict(model, state_dict)
 
     generator = LLaMA(
         model,
