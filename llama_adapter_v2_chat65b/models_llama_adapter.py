@@ -147,8 +147,8 @@ def Llama_adapter(args, model_name, adapter_len=0, adapter_layer=0, add_bias=Fal
             name.endswith('.gate') or \
             name == 'adapter_query' or \
             (train_norm and '_norm.' in name) or \
-            name.endswith('.added_bias') or \
-            name.endswith('.added_scale')
+            name.endswith('_bias') or \
+            name.endswith('_scale')
             
         if requires_grad:
             param.data = param.data.float()
@@ -160,4 +160,7 @@ def Llama_adapter(args, model_name, adapter_len=0, adapter_layer=0, add_bias=Fal
 
 
 # set recommended archs
+Llama7B_bias_scale_norm_tuning = functools.partial(Llama_adapter, model_name='7B', add_bias=True, add_scale=True, train_norm=True)
+Llama13B_bias_scale_norm_tuning = functools.partial(Llama_adapter, model_name='13B', add_bias=True, add_scale=True, train_norm=True)
+Llama30B_bias_scale_norm_tuning = functools.partial(Llama_adapter, model_name='30B', add_bias=True, add_scale=True, train_norm=True)
 Llama65B_bias_scale_norm_tuning = functools.partial(Llama_adapter, model_name='65B', add_bias=True, add_scale=True, train_norm=True)
